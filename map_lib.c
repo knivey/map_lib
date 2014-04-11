@@ -35,9 +35,12 @@
 struct map_t *map_create() {
    struct map_t *m;
    m=(struct map_t *)malloc(sizeof(struct map_t));
+   if(!m)
+      return NULL;
    m->name=NULL;
    m->value=NULL;
    m->nxt=NULL;
+   return m;
 }
 
 void map_free(struct map_t *map) {
@@ -63,8 +66,12 @@ void map_set(struct map_t *m,char *name,char *value) {
 
    if(m->name==NULL) {
       m->name=(char *)malloc(strlen(name)+1);
+      if(!m->name)
+         return;
       strcpy(m->name,name);
       m->value=(char *)malloc(strlen(value)+1);
+      if(!m->value)
+         return;
       strcpy(m->value,value);
       m->nxt=NULL;
       return;
@@ -74,16 +81,24 @@ void map_set(struct map_t *m,char *name,char *value) {
          if(map->value!=NULL) {
             free(map->value);
             map->value=(char *)malloc(strlen(value)+1);
+            if(!map->value)
+               return;
             strcpy(map->value,value);
             return;
          }
       }
       if(map->nxt==NULL) {
          map->nxt=(struct map_t *)malloc(sizeof(struct map_t));
+         if(!map->nxt)
+            return;
          map=map->nxt;
          map->name=(char *)malloc(strlen(name)+1);
+	 if(!map->name)
+            return;
          strcpy(map->name,name);
          map->value=(char *)malloc(strlen(value)+1);
+         if(!map->value)
+            return;
          strcpy(map->value,value);
          map->nxt=NULL;
          return;
