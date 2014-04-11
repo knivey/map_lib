@@ -87,7 +87,7 @@ void map_set(struct map_t *m,char *name,char *value) {
          strcpy(map->value,value);
          map->nxt=NULL;
          return;
-      }      
+      }
    }
 }
 
