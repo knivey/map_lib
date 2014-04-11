@@ -40,6 +40,23 @@ struct map_t *map_create() {
    m->nxt=NULL;
 }
 
+void map_free(struct map_t *map) {
+   if(!map)
+      return;
+
+   struct map_t *m, *mp;
+
+   m=map;
+   while(m!=NULL) {
+      if(m->name!=NULL)
+         free(m->name);
+      if(m->value!=NULL)
+         free(m->value);
+      mp=m;
+      m=m->nxt;
+      free(mp);
+   }
+}
 
 void map_set(struct map_t *m,char *name,char *value) {
    struct map_t *map;
